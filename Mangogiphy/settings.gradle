@@ -1,0 +1,3 @@
+include ':app', ':giphy-android-sdk-core'
+
+project(':giphy-android-sdk-core').projectDir = new File(settingsDir, '../giphy-android-sdk-core/app')
