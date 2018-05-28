@@ -1,0 +1,5 @@
+<root>
+    <item name='com.mikepenz.fastadapter.commons.adapters.FastItemAdapter'>
+        <annotation name='java.lang.Deprecated' />
+    </item>
+</root>
