@@ -1,1 +1,1 @@
-"# Mangogiphy" 
+# Mangogiphy
