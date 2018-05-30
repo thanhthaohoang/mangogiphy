@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         // relier le linearlayoutmanager au recycler view
         gifsRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        gifsRecyclerView.addItemDecoration(SpacingItemDecoration(10))
+        gifsRecyclerView.addItemDecoration(SpacingItemDecoration(5))
 
 
         val gifsItemAdapter = FastItemAdapter<GifItem>()
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                     gifsItemAdapter.clear()
                     gifsItemAdapter.notifyDataSetChanged()
 
-                    client.search(query, MediaType.gif, 5, 0, null, null) { result, e ->
+                    client.search(query, MediaType.gif, 10, 0, null, null) { result, e ->
                         if (result == null) {
                             val errorMsg = "No results for $query"
                             queryTextView.text = errorMsg
