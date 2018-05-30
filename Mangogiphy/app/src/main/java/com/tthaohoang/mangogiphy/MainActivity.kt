@@ -2,6 +2,8 @@ package com.tthaohoang.mangogiphy
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
 import android.view.View
@@ -14,6 +16,7 @@ import com.mikepenz.fastadapter.listeners.OnClickListener
 import com.tthaohoang.mangogiphy.data.GiphyManager
 import com.tthaohoang.mangogiphy.item.GifItem
 import com.tthaohoang.mangogiphy.model.Gif
+import com.tthaohoang.mangogiphy.presentation.SpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.log
 
@@ -25,15 +28,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // relier le linearlayoutmanager au recycler view
-//        gifsRecyclerView.layoutManager = LinearLayoutManager(this,
-//                LinearLayoutManager.INVALID_OFFSET, false)
         gifsRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        gifsRecyclerView.addItemDecoration(SpacingItemDecoration(10))
+
 
         val gifsItemAdapter = FastItemAdapter<GifItem>()
 
         // relier le fastadapter au recycler view
         gifsRecyclerView.adapter = gifsItemAdapter
 
+        // open search bar directly
         searchBar.setIconifiedByDefault(false)
 
         val client = GiphyManager.client
@@ -44,15 +48,20 @@ class MainActivity : AppCompatActivity() {
                 Log.i("tag", query)
 //                on submit, fetch gifs
                 if(query is String) {
-
+                    arrayGifs.clear()
                     gifsItemAdapter.clear()
                     gifsItemAdapter.notifyDataSetChanged()
 
                     client.search(query, MediaType.gif, 5, 0, null, null) { result, e ->
                         if (result == null) {
-                            // Do what you want to do with the error
+                            val errorMsg = "No results for $query"
+                            queryTextView.text = errorMsg
                         } else {
                             if (result.data != null) {
+
+                                val successMsg = "Results for $query"
+                                queryTextView.text = successMsg
+
 //                                add gifs in arraylistof Gif model
                                 for (gif in result.data) {
 //                                    Log.v("giphy", gif.id)

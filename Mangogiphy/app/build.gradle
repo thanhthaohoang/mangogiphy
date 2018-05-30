@@ -59,4 +59,5 @@ dependencies {
 
     // Giphy SDK
     implementation project(':giphy-android-sdk-core')
+    implementation 'com.android.support:cardview-v7:27.1.1'
 }
