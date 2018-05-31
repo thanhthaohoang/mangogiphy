@@ -31,7 +31,6 @@
         android:id="@+id/urlImageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:background="@android:color/holo_orange_dark"
         android:contentDescription="@string/gif_image_content_description" />
 
 </RelativeLayout>
