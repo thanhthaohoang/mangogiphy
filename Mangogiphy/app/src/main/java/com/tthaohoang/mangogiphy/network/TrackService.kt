@@ -23,9 +23,9 @@ class TrackService {
                         }
 
                     })
-            // envoi de la requête (appel WS) dans la requestQueue principale
-            LoginUser.instance
-                    .requestQueue.add(request.build())
+
+
+
 
         }
 

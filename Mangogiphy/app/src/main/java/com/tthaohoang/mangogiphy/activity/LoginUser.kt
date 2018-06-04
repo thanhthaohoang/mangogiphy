@@ -26,8 +26,6 @@ class LoginUser : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_user)
 
-        LoginUser.instance = this
-        requestQueue = Volley.newRequestQueue(this)
 
         login()
 

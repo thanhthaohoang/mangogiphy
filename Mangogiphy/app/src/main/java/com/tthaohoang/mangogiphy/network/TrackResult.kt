@@ -1,7 +1,7 @@
 package com.tthaohoang.mangogiphy.network
 
-import com.deezer.sdk.model.Track
+import com.tthaohoang.mangogiphy.model.TrackList
 
 class TrackResult {
-    var results = arrayListOf<Track>()
+    var results = arrayListOf<TrackList>()
 }
