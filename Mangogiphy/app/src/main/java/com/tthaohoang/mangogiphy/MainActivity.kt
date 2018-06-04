@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var moodsItemAdapter: FastItemAdapter<MoodItem>
     lateinit var client: GPHApiClient
     lateinit var queryTag: String
+   private var arrayGifs = arrayListOf<Gif>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         val listMoods = arrayListOf<Mood>()
         listMoods.add(Mood("Happy", R.drawable.mood_happy))
         listMoods.add(Mood("Sad", R.drawable.mood_sad))
+        listMoods.add(Mood("Morning", R.drawable.mood_morning))
         listMoods.add(Mood("Morning", R.drawable.mood_morning))
 
         moodsRecyclerView.layoutManager = LinearLayoutManager(this,
@@ -74,6 +76,8 @@ class MainActivity : AppCompatActivity() {
         client = GiphyManager.client
         queryTag = ""
 
+        fetchTrends()
+
         // search gifs when user add a request in search bar
         searchBar.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -107,15 +111,34 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun fetchTrends() {
+        client.trending(MediaType.gif, 6, 0, null) { result, e ->
+            if (result == null) {
+
+            } else {
+                if (result.data != null) {
+                    queryTag = "Famous"
+                    for (trend in result.data) {
+                        arrayGifs.add(Gif(trend.images.fixedHeight.gifUrl))
+                    }
+
+                    for (gif in arrayGifs) {
+                        val gifItem = GifItem(gif)
+                        gifsItemAdapter.add(gifItem)
+                    }
+                }
+            }
+        }
+    }
+
     fun searchGifs(query: String) {
-        var arrayGifs = arrayListOf<Gif>()
         queryTag = query
 //                on submit, fetch gifs
         arrayGifs.clear()
         gifsItemAdapter.clear()
         gifsItemAdapter.notifyDataSetChanged()
 
-        client.search(queryTag, MediaType.gif, 5, 0, null, null) { result, e ->
+        client.search(queryTag, MediaType.gif, 6, 0, null, null) { result, e ->
             if (result == null) {
                 val errorMsg = "No results for $queryTag"
                 queryTextView.text = errorMsg
