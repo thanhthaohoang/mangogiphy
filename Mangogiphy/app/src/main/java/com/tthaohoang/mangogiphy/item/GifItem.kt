@@ -54,7 +54,7 @@ class GifItem(var gif: Gif) : AbstractItem<GifItem, GifItem.GifViewHolder>() {
                             .load(gif.urlImg)
                             .apply(RequestOptions()
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                    .transforms(CenterCrop(), RoundedCorners(10))
+                                    .transforms(CenterCrop(), RoundedCorners(7))
 //                                    .placeholder(R.drawable.ic_launcher_background)
                             )
                             .transition(DrawableTransitionOptions.withCrossFade( 300))

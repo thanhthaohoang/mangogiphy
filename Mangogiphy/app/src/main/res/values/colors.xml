@@ -3,11 +3,4 @@
     <color name="colorPrimary">#FABB6E</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-
-    <!-- image placeholder colors -->
-    <color name="colorLightBlue">#00B7E5</color>
-    <color name="colorLightYellow">#E5DA53</color>
-    <color name="colorLightPurple">#892EE5</color>
-    <color name="colorLightGreen">#00E589</color>
-    <color name="colorLightRed">#E55C5C</color>
 </resources>

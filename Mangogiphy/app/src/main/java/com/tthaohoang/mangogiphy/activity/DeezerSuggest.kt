@@ -1,11 +1,13 @@
 package com.tthaohoang.mangogiphy.activity
 
+import android.graphics.drawable.RotateDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.deezer.sdk.model.Track
 import com.deezer.sdk.network.connect.DeezerConnect
 import com.deezer.sdk.network.request.DeezerRequestFactory
@@ -37,10 +39,8 @@ class DeezerSuggest : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         //hide top bar
-//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_deezer_suggest)
-
 
         //stop my activity/ dialog when the user clicks outside of the dialog
         this.setFinishOnTouchOutside(true)
