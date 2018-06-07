@@ -55,7 +55,7 @@ class MoodItem (var mood: Mood) : AbstractItem<MoodItem, MoodItem.MoodItemViewHo
                             .load(mood.thumbnail)
                             .apply(RequestOptions()
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                    .transforms(CenterCrop(), RoundedCorners(7))
+                                    .transforms(CenterCrop(), RoundedCorners(5))
                             )
                             .transition(DrawableTransitionOptions.withCrossFade( 300))
                             .into(currentThumbView)

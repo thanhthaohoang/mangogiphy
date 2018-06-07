@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
     <style name="PlayerSeekbar" parent="Widget.AppCompat.SeekBar">
         <item name="android:progressBackgroundTint">#d8d8d8</item>
         <item name="android:progressTint">#1E93B7</item>
@@ -15,6 +19,7 @@
     </style>
 
     <style name="SearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:background">@android:color/white</item>
         <item name="submitBackground">@android:color/white</item>
         <item name="queryBackground">@android:color/white</item>
     </style>

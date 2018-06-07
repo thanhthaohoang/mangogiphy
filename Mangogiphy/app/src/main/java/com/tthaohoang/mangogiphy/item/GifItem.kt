@@ -2,6 +2,7 @@
 
 package com.tthaohoang.mangogiphy.item
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -54,11 +55,15 @@ class GifItem(var gif: Gif) : AbstractItem<GifItem, GifItem.GifViewHolder>() {
                             .load(gif.urlImg)
                             .apply(RequestOptions()
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                    .transforms(CenterCrop(), RoundedCorners(7))
-//                                    .placeholder(R.drawable.ic_launcher_background)
+                                    .transforms(CenterCrop(), RoundedCorners(5))
+                                    .placeholder(R.color.placeholderGif)
                             )
                             .transition(DrawableTransitionOptions.withCrossFade( 300))
                            .into(currentImageView)
+
+                    // adapt height of image view according to gif height
+//                    currentImageView.layoutParams.height = gif.height
+
                 }
             }
         }

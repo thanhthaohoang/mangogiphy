@@ -116,6 +116,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchTrends() {
+        arrayGifs.clear()
+        gifsItemAdapter.clear()
+        gifsItemAdapter.notifyDataSetChanged()
         client.trending(MediaType.gif, 12, 0, null) { result, e ->
             if (result == null) {
 
@@ -123,7 +126,7 @@ class MainActivity : AppCompatActivity() {
                 if (result.data != null) {
                     queryTag = "Famous"
                     for (trend in result.data) {
-                        arrayGifs.add(Gif(trend.images.fixedHeight.gifUrl))
+                        arrayGifs.add(Gif(trend.images.fixedHeight.gifUrl, trend.images.fixedWidth.height))
                     }
 
                     for (gif in arrayGifs) {
@@ -154,8 +157,7 @@ class MainActivity : AppCompatActivity() {
 
 //                                add gifs in arraylistof Gif model
                     for (gif in result.data) {
-//                                    Log.v("giphy", gif.id)
-                        arrayGifs.add(Gif(gif.images.fixedHeight.gifUrl))
+                        arrayGifs.add(Gif(gif.images.fixedHeight.gifUrl, gif.images.fixedWidth.height))
                     }
 
 //                                Display gifs in adapter

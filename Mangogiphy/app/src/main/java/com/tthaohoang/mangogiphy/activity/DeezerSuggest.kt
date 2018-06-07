@@ -1,11 +1,8 @@
 package com.tthaohoang.mangogiphy.activity
 
-import android.graphics.drawable.RotateDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Window
-import android.view.WindowManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.deezer.sdk.model.Track
@@ -18,10 +15,7 @@ import com.deezer.sdk.player.event.PlayerState
 import com.deezer.sdk.player.networkcheck.WifiAndMobileNetworkStateChecker
 import com.tthaohoang.mangogiphy.R
 import com.tthaohoang.mangogiphy.data.DeezerManager
-import com.tthaohoang.mangogiphy.model.TrackList
 import kotlinx.android.synthetic.main.activity_deezer_suggest.*
-import org.json.JSONArray
-import org.json.JSONObject
 import java.lang.Exception
 
 
@@ -43,7 +37,7 @@ class DeezerSuggest : AppCompatActivity() {
         setContentView(R.layout.activity_deezer_suggest)
 
         //stop my activity/ dialog when the user clicks outside of the dialog
-        this.setFinishOnTouchOutside(true)
+        this.setFinishOnTouchOutside(false)
 
 
         query = intent.getStringExtra("EXTRA_QUERY")
@@ -60,6 +54,13 @@ class DeezerSuggest : AppCompatActivity() {
 
         playBtn.setOnClickListener({ togglePlay() })
 
+        // drop down
+        dropdownArrow.setOnClickListener({
+            // close pop in player
+            trackPlayer.stop()
+            trackPlayer.release()
+            this.finish()
+        })
     }
 
     fun searchTracks(query: String) {
@@ -97,6 +98,9 @@ class DeezerSuggest : AppCompatActivity() {
         Glide
                 .with(this)
                 .load(track.album.imageUrl)
+                .apply(RequestOptions()
+                        .placeholder(R.color.placeholderGif)
+                )
                 .into(albumCover)
         trackPlayer.playTrack(track.id)
 
@@ -109,9 +113,14 @@ class DeezerSuggest : AppCompatActivity() {
 
     override fun onDestroy() {
         // stop music when activity is left
+//        trackPlayer.stop()
+//        trackPlayer.release()
+        super.onDestroy()
+    }
+
+    fun changeMusic() {
         trackPlayer.stop()
         trackPlayer.release()
-        super.onDestroy()
     }
 
     // play or stop the music by clicking on the button player
