@@ -25,9 +25,10 @@ class DeezerSuggest : AppCompatActivity() {
     lateinit var deezerConnect: DeezerConnect
     lateinit var trackPlayer: TrackPlayer
     private var query: String = ""
-    private var trackId: Long = 12565420
     private var tracksList = arrayListOf<Track>()
     private lateinit var listener: RequestListener
+    private var trackId: Long = 0
+    private var firstPlay: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +50,6 @@ class DeezerSuggest : AppCompatActivity() {
         trackPlayer.addOnPlayerProgressListener {
             showPlayerProgress(it.toInt())
         }
-
         searchTracks(query)
 
         playBtn.setOnClickListener({ togglePlay() })
@@ -74,7 +74,6 @@ class DeezerSuggest : AppCompatActivity() {
                     tracksList.shuffle()
                     val randomTrack = tracksList[0]
                     playTrack(randomTrack)
-
                 }
             }
 
@@ -94,6 +93,7 @@ class DeezerSuggest : AppCompatActivity() {
     fun playTrack(track: Track) {
         songTitle.text = track.title
         artistTextView.text = track.artist.name
+        trackId = track.id
         showPlayerProgress(0)
         Glide
                 .with(this)
@@ -102,8 +102,7 @@ class DeezerSuggest : AppCompatActivity() {
                         .placeholder(R.color.placeholderGif)
                 )
                 .into(albumCover)
-        trackPlayer.playTrack(track.id)
-
+//        trackPlayer.playTrack(trackId)
     }
 
     fun showPlayerProgress(timePosition: Int) {
@@ -113,24 +112,24 @@ class DeezerSuggest : AppCompatActivity() {
 
     override fun onDestroy() {
         // stop music when activity is left
-//        trackPlayer.stop()
-//        trackPlayer.release()
-        super.onDestroy()
-    }
-
-    fun changeMusic() {
         trackPlayer.stop()
         trackPlayer.release()
+        super.onDestroy()
     }
 
     // play or stop the music by clicking on the button player
     fun togglePlay() {
-        if(isPlaying()) {
-            trackPlayer.pause()
-            playBtn.setImageResource(R.drawable.play_button)
+        if (firstPlay) {
+            trackPlayer.playTrack(trackId)
+            firstPlay = false
         } else {
-            trackPlayer.play()
-            playBtn.setImageResource(R.drawable.stop_button)
+            if(isPlaying()) {
+                trackPlayer.pause()
+                playBtn.setImageResource(R.drawable.play_button)
+            } else {
+                trackPlayer.play()
+                playBtn.setImageResource(R.drawable.stop_button)
+            }
         }
     }
 
