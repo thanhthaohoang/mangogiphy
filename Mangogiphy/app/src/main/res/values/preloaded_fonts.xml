@@ -2,5 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/rubik_medium</item>
+        <item>@font/interstate_regular</item>
+        <item>@font/interstate_light</item>
     </array>
 </resources>

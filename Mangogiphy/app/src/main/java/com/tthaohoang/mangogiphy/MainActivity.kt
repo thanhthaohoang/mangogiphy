@@ -1,6 +1,10 @@
 package com.tthaohoang.mangogiphy
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
+import android.inputmethodservice.InputMethodService
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.ActionBar
@@ -9,6 +13,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import com.giphy.sdk.core.models.enums.MediaType
 import com.giphy.sdk.core.network.api.GPHApiClient
@@ -34,6 +39,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // fonts
+
+        // open search bar directly
+//        searchBar.setIconifiedByDefault(false)
+        // hide keyboard when searchbar is not focused
+        val inputManager:InputMethodManager =getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(searchBar.windowToken, 0)
 
         // Moods
         val listMoods = arrayListOf<Mood>()
@@ -74,14 +87,9 @@ class MainActivity : AppCompatActivity() {
         // relier le fastadapter au recycler view
         gifsRecyclerView.adapter = gifsItemAdapter
 
-        // open search bar directly
-//        searchBar.setIconifiedByDefault(false)
-
         client = GiphyManager.client
         queryTag = ""
-
         fetchTrends()
-
         // search gifs when user add a request in search bar
         searchBar.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -91,7 +99,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 return false
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 return true
             }
@@ -99,7 +106,6 @@ class MainActivity : AppCompatActivity() {
 
         // play track when a gif is clicked
         val intent = Intent(this, DeezerSuggest::class.java)
-
         //gestion du click event
         gifsItemAdapter.withOnClickListener(object: OnClickListener<GifItem> {
             override fun onClick(v: View?, adapter: IAdapter<GifItem>?, item: GifItem?, position: Int): Boolean {

@@ -6,10 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/interstate_regular</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-
     </style>
 
     <style name="PlayerSeekbar" parent="Widget.AppCompat.SeekBar">
@@ -29,9 +29,10 @@
         <item name="windowNoTitle">true</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:fontFamily">@font/interstate_regular</item>
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
         <item name="android:windowMinWidthMajor">100%</item>
-        <item name="android:windowMinWidthMinor">50%</item>
+        <item name="android:windowMinWidthMinor">70%</item>
     </style>
 
 </resources>

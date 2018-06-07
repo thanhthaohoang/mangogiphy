@@ -27,6 +27,7 @@ class DeezerSuggest : AppCompatActivity() {
     private var query: String = ""
     private var tracksList = arrayListOf<Track>()
     private lateinit var listener: RequestListener
+    private lateinit var randomTrack: Track
     private var trackId: Long = 0
     private var firstPlay: Boolean = true
 
@@ -57,8 +58,6 @@ class DeezerSuggest : AppCompatActivity() {
         // drop down
         dropdownArrow.setOnClickListener({
             // close pop in player
-            trackPlayer.stop()
-            trackPlayer.release()
             this.finish()
         })
     }
@@ -72,7 +71,7 @@ class DeezerSuggest : AppCompatActivity() {
                         tracksList.add(element as Track)
                     }
                     tracksList.shuffle()
-                    val randomTrack = tracksList[0]
+                    randomTrack = tracksList[0]
                     playTrack(randomTrack)
                 }
             }
@@ -102,7 +101,6 @@ class DeezerSuggest : AppCompatActivity() {
                         .placeholder(R.color.placeholderGif)
                 )
                 .into(albumCover)
-//        trackPlayer.playTrack(trackId)
     }
 
     fun showPlayerProgress(timePosition: Int) {
@@ -121,6 +119,7 @@ class DeezerSuggest : AppCompatActivity() {
     fun togglePlay() {
         if (firstPlay) {
             trackPlayer.playTrack(trackId)
+            playBtn.setImageResource(R.drawable.stop_button)
             firstPlay = false
         } else {
             if(isPlaying()) {
